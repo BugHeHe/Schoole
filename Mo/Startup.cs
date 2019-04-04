@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Cors;
 
-namespace System
+namespace Mo
 {
     public class Startup
     {
@@ -16,12 +15,6 @@ namespace System
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddCors(c=> {
-                c.AddPolicy("kua", p=> {
-                    p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-                });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,8 +24,11 @@ namespace System
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMvc();
-            app.UseCors("kua"); 
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello World!");
+            });
         }
     }
 }
