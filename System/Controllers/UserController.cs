@@ -19,7 +19,15 @@ namespace System.Controllers
         [HttpPost]
         public User UserLogin([FromBody] User us)
         {
-          return  ef.User.FirstOrDefault(x => x.UserCid == us.UserCid && x.Password == us.Password) != null ? ef.User.FirstOrDefault(x => x.UserCid == us.UserCid && x.Password == us.Password) : null;
+            try
+            {
+                return ef.User.FirstOrDefault(x => x.UserCid == us.UserCid && x.Password == us.Password) != null ? ef.User.FirstOrDefault(x => x.UserCid == us.UserCid && x.Password == us.Password) : null;
+            }
+            catch
+            {
+                return null;
+            }
+         
         }
     }
 }
