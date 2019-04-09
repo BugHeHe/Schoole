@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Mo.Models;
 using Newtonsoft.Json.Linq;
-using System.ViewModel;
+using Mo.ViewModel;
 using AutoMapper;
 
 namespace System.Controllers
@@ -27,13 +27,16 @@ namespace System.Controllers
 
         //在平台权限系统中  根据当前人的对象 获取所对应的
         [HttpPost] 
-        public List<ModuleList> MenuList()
+        public List<ModuleList> MenuList([FromBody]JObject ob)
         {
             List<int> shu = new List<int>();
             try
             {
+                dynamic result = ob;
+                int userid = result.id;
                 List<ModuleList> li = new List<ModuleList>();
-                foreach (var item in ef.RoleUser.Where(x => x.UserId ==2))
+                //首先获取该用户 角色中 所拥有的的具体模块
+                foreach (var item in ef.RoleUser.Where(x => x.UserId ==userid))
                 {
                     foreach (var item1 in ef.RoleMenu.Where(x => x.RoleId == item.RoleId))
                     {
@@ -44,6 +47,7 @@ namespace System.Controllers
                             shu.Add(i);
                     }
                 }
+                //根据具体模块信息 获取二级菜单的父集
                 foreach (var item in shu)
                 {
                     if(ef.Module.FirstOrDefault(x=>x.PlatformSystemId==1 && x.Id == item) == null)

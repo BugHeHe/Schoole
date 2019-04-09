@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapperDemo.Configs;
 using Mo.Models;
-using System.ViewModel;
+using Mo.ViewModel;
 
 namespace AutoMapperDemo.Configs
 {
