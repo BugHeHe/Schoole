@@ -11,6 +11,7 @@ namespace Mo.ViewModel
         public string MenuName { get; set; }
         public int? ModuleID { get; set; }
         public string icon { get; set; }
+        public string name { get; set; }
         public string   path { get; set; }
         public string View { get; set; }
 }
