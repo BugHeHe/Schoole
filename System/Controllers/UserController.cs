@@ -23,7 +23,7 @@ namespace System.Controllers
             {
                 return ef.User.FirstOrDefault(x => x.UserCid == us.UserCid && x.Password == us.Password) != null ? ef.User.FirstOrDefault(x => x.UserCid == us.UserCid && x.Password == us.Password) : null;
             }
-            catch
+            catch(Exception ex)
             {
                 return null;
             }

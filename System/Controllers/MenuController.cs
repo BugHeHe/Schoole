@@ -52,7 +52,7 @@ namespace System.Controllers
                 {
                     if(ef.Module.FirstOrDefault(x=>x.PlatformSystemId==1 && x.Id == item) == null)
                     {
-                        break;
+                        continue;
                     }
                     ModuleList dui = new ModuleList();
                     dui.icon = ef.Module.FirstOrDefault(x => x.Id == item && x.PlatformSystemId == 1).Icon;
@@ -60,12 +60,12 @@ namespace System.Controllers
                     dui.ModuleName = ef.Module.FirstOrDefault(x => x.Id == item && x.PlatformSystemId == 1).ModuleName;
                     dui.path = ef.Module.FirstOrDefault(x => x.Id == item && x.PlatformSystemId == 1).Path;
                     dui.PlatformSystemId = ef.Module.FirstOrDefault(x => x.Id == item && x.PlatformSystemId == 1).PlatformSystemId;
-                    dui.view = ef.Module.FirstOrDefault(x => x.Id == item && x.PlatformSystemId == 1).View;
+                    dui.view = ef.Module.FirstOrDefault(x => x.Id == item && x.PlatformSystemId ==1).View;
                   
                     List<MenuList> me = new List<MenuList>();
                     foreach (var item1 in ef.Menu.Where(x=>x.ModuleId==item))
                     {
-                        
+
                         me.Add(new MenuList()
                         {
                             icon = ef.Menu.FirstOrDefault(x => x.Id == item1.Id).Icon,
@@ -74,6 +74,7 @@ namespace System.Controllers
                             ModuleID = ef.Menu.FirstOrDefault(x => x.Id == item1.Id).ModuleId,
                             path = ef.Menu.FirstOrDefault(x => x.Id == item1.Id).Path,
                             View = ef.Menu.FirstOrDefault(x => x.Id == item1.Id).View,
+                            name = ef.Menu.FirstOrDefault(x => x.Id == item1.Id).Name,
                         });
                     }
                     dui.menu = me != null ? me : null;
