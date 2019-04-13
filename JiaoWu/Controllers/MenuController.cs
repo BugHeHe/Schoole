@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
 using Mo.Models;
-using Newtonsoft.Json.Linq;
 using Mo.ViewModel;
-using AutoMapper;
+using Newtonsoft.Json.Linq;
 
-namespace System.Controllers
+namespace JiaoWu.Controllers
 {
     [Produces("application/json")]
     [Route("api/mokuai/[action]")]
@@ -18,21 +17,14 @@ namespace System.Controllers
     public class MenuController : Controller
     {
         private SchoolContext ef = new SchoolContext();
-        private IMapper _mapper;
-        public MenuController(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
-
 
         //在平台权限系统中  根据当前人的对象 获取所对应的
-        [HttpPost] 
+        [HttpPost]
         public List<ModuleList> MenuList([FromBody]JObject ob)
         {
-
             List<int> shu = new List<int>();
             List<int> shu1 = new List<int>();
-            try
+        try
             {
                 dynamic result = ob;
                 int userid = result.id;
@@ -44,7 +36,7 @@ namespace System.Controllers
                     foreach (var item1 in ef.RoleMenu.Where(x => x.RoleId == item.RoleId))
                     {
                         int i = Convert.ToInt32(item1.MenuId);
-                        if (ef.Module.FirstOrDefault(x => x.Id == ef.Menu.FirstOrDefault(x1 => x1.Id == i).ModuleId).PlatformSystemId ==1)
+                        if (ef.Module.FirstOrDefault(x => x.Id == ef.Menu.FirstOrDefault(x1 => x1.Id == i).ModuleId).PlatformSystemId==3)
                         {
                             if (shu.Contains((int)ef.Menu.FirstOrDefault(x1 => x1.Id == i).ModuleId)) { }
                             else shu.Add((int)ef.Menu.FirstOrDefault(x1 => x1.Id == i).ModuleId);
@@ -56,12 +48,12 @@ namespace System.Controllers
                 foreach (var item in shu)
                 {
                     ModuleList dui = new ModuleList();
-                    dui.icon = ef.Module.FirstOrDefault(x => x.Id == item).Icon;
-                    dui.ID = ef.Module.FirstOrDefault(x => x.Id == item).Id;
-                    dui.ModuleName = ef.Module.FirstOrDefault(x => x.Id == item).ModuleName;
-                    dui.path = ef.Module.FirstOrDefault(x => x.Id == item).Path;
-                    dui.PlatformSystemId = ef.Module.FirstOrDefault(x => x.Id == item).PlatformSystemId;
-                    dui.view = ef.Module.FirstOrDefault(x => x.Id == item).View;
+                    dui.icon = ef.Module.FirstOrDefault(x => x.Id ==item).Icon;
+                    dui.ID = ef.Module.FirstOrDefault(x => x.Id ==item).Id;
+                    dui.ModuleName = ef.Module.FirstOrDefault(x => x.Id ==item).ModuleName;
+                    dui.path = ef.Module.FirstOrDefault(x => x.Id ==item).Path;
+                    dui.PlatformSystemId = ef.Module.FirstOrDefault(x => x.Id ==item).PlatformSystemId;
+                    dui.view = ef.Module.FirstOrDefault(x => x.Id ==item).View;
 
                     List<MenuList> me = new List<MenuList>();
                     foreach (var item1 in shu1)

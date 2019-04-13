@@ -18,7 +18,7 @@ namespace JiaoWu
         {
             services.AddMvc();
             services.AddCors(con=> {
-                con.AddPolicy("K", p => {
+                con.AddPolicy("kua", p => {
                     p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
             });
@@ -32,7 +32,7 @@ namespace JiaoWu
                 app.UseDeveloperExceptionPage();
             }
             app.UseMvc();
-            app.UseCors("K");
+            app.UseCors("kua");
         }
     }
 }
