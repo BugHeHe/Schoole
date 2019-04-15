@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Mo.Models;
+using Mo.ViewModel;
 
 namespace Student.Controllers
 {
@@ -17,9 +18,31 @@ namespace Student.Controllers
         private SchoolContext db = new SchoolContext();
 
         [HttpGet]
-        public List<Mo.Models.Student> GetStus()
+        public List<StudentList> GetStus()
         {
-            return db.Student.ToList();
+            List<StudentList> li = new List<StudentList>();
+            try
+            {
+                foreach(var item in db.Student.ToList())
+                {
+                    li.Add(new StudentList()
+                    {
+                        StudentName = item.StudentName,
+                        ClassName=db.Class.FirstOrDefault(x=>x.Id==item.ClassId).ClassName,
+                        Password=item.Password,
+                        Gender=db.Student.FirstOrDefault(x=>x.Id==item.Id).Gender==true?"女":"男",
+                        Phone=item.Phone,
+                        CardID=item.CardId,
+                        XueLi=item.XueLi,
+                        
+                    });
+                }
+                return li;
+            }
+            catch
+            {
+                return new List<StudentList>();
+            }
         }
 
         [HttpPost]
