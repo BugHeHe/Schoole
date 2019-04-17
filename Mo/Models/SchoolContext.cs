@@ -44,7 +44,7 @@ namespace Mo.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=SKY-20190305TPB\SERVREN;Database=School;uid=sa;pwd=sa");
+                optionsBuilder.UseSqlServer(@"Server=CHINA-20181115Q\MSSQLSERVER2;Database=School;uid=sa;pwd=sa");
             }
         }
 
